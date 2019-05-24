@@ -48,7 +48,7 @@
 								<td style="text-align:left; padding-left:${15*vo.depth}px">
 								<c:choose>
 									<c:when test="${vo.status == true }">
-										<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no}">
+										<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no}?page=${currentPage}&kwd=${kwd}">
 									 		<c:if test="${0 ne vo.depth }">
 							                   <img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'>
 							                </c:if>
@@ -69,7 +69,7 @@
 								<c:set var='userNo' value='<%=userNo %>' />
 								<c:if test="${vo.userNo == userNo}">
 								<c:if test="${vo.status == true }">
-									<td><a href="${pageContext.servletContext.contextPath }/board/delete/${vo.no}" class="del">삭제</a></td>
+									<td><a href="${pageContext.servletContext.contextPath }/board/delete/${vo.no}?page=${currentPage}&kwd=${kwd}" class="del">삭제</a></td>
 								</c:if>
 								</c:if>
 							</tr>
@@ -94,7 +94,7 @@
 	          if(authUser != null){
 	        %>
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board/write"
+					<a href="${pageContext.servletContext.contextPath }/board/write?page=${currentPage}&kwd=${kwd}"
 						id="new-book">글쓰기</a>
 				</div>
 			<%

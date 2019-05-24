@@ -42,12 +42,12 @@
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="${pageContext.servletContext.contextPath }/board/list">글목록</a>
+					<a href="${pageContext.servletContext.contextPath }/board/list?page=${param.page}&kwd=${param.kwd}">글목록</a>
 				<c:set var='userNo' value='<%=userNo %>' />
 				<c:if test="${oneVo.userNo == userNo }">
-					<a href="${pageContext.servletContext.contextPath }/board/modify/${oneVo.no}">글수정</a>
+					<a href="${pageContext.servletContext.contextPath }/board/modify/${oneVo.no}?page=${param.page}&kwd=${param.kwd}">글수정</a>
 				</c:if>
-					<a href="${pageContext.servletContext.contextPath }/board/write?no=${oneVo.no}">덧글</a>
+					<a href="${pageContext.servletContext.contextPath }/board/write?no=${oneVo.no}&page=${param.page}&kwd=${param.kwd}">덧글</a>
 				</div>
 			</div>
 		</div>

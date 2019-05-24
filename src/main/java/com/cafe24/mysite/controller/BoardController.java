@@ -35,6 +35,7 @@ public class BoardController {
 			) {
 		model.addAttribute("listCount", boardService.getListCount());
 		model.addAttribute("currentPage", page);
+		
 		model.addAttribute("list", boardService.getList(page));
 		return "/board/list";
 	}
@@ -57,20 +58,18 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(
 			@ModelAttribute BoardVo boardVo,
-			@AuthUser UserVo authUser,
-			@RequestParam(value = "kwd", required = true, defaultValue = "")String kwd,
-			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page
+			@AuthUser UserVo authUser
 			) {
 		
 		boolean result = boardService.write(boardVo, authUser);
 		if (result) {
 			System.out.println("insert: success");
 		}
-		return "redirect:/board/list?page="+page+"&kwd="+kwd;
+		return "redirect:/board/list";
 	}
 
 	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
-	public String view(@PathVariable(value="no")Long no, Model model) {
+	public String view(@PathVariable(value="no")Long no,Model model) {
 		BoardVo vo = boardService.getOne(no);
 		model.addAttribute("oneVo", vo);
 		return "/board/view";
@@ -115,6 +114,7 @@ public class BoardController {
 			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page,
 			Model model) {
 		List<BoardVo> list = boardService.search(kwd, page);
+		model.addAttribute("kwd", kwd);
 		model.addAttribute("listCount", list.size());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("list", list);
