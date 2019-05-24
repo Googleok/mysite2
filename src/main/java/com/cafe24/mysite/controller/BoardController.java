@@ -30,9 +30,9 @@ public class BoardController {
 	@RequestMapping({ "/list", "" })
 	public String list(
 			Model model,
+			@RequestParam(value = "kwd", required = true, defaultValue = "")String kwd,
 			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page	
 			) {
-		System.out.println("asfa");
 		model.addAttribute("listCount", boardService.getListCount());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("list", boardService.getList(page));
@@ -55,13 +55,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(@ModelAttribute BoardVo boardVo, @AuthUser UserVo authUser) {
+	public String write(
+			@ModelAttribute BoardVo boardVo,
+			@AuthUser UserVo authUser,
+			@RequestParam(value = "kwd", required = true, defaultValue = "")String kwd,
+			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page
+			) {
 		
 		boolean result = boardService.write(boardVo, authUser);
 		if (result) {
 			System.out.println("insert: success");
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/list?page="+page+"&kwd="+kwd;
 	}
 
 	@RequestMapping(value = "/view/{no}", method = RequestMethod.GET)
@@ -73,10 +78,14 @@ public class BoardController {
 
 	@Auth(role=Auth.Role.USER)	// 인증 annotation
 	@RequestMapping(value = "/delete/{no}", method = RequestMethod.GET)
-	public String delete(@PathVariable(value="no")Long no, Model model) {
+	public String delete(
+			@PathVariable(value="no")Long no,
+			@RequestParam(value = "kwd", required = true, defaultValue = "")String kwd,
+			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page,
+			Model model) {
 		Boolean result = boardService.delete(no);
 		model.addAttribute("deleteResult", result);
-		return "redirect:/board/list";
+		return "redirect:/board/list?page="+page+"&kwd="+kwd;
 	}
 
 	@Auth(role=Auth.Role.USER)	// 인증 annotation
@@ -88,12 +97,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modify(@ModelAttribute BoardVo boardVo) {
+	public String modify(
+			@ModelAttribute BoardVo boardVo,
+			@RequestParam(value = "kwd", required = true, defaultValue = "")String kwd,
+			@RequestParam(value="page", required = true, defaultValue ="1" )Integer page
+			) {
 		boolean result = boardService.modify(boardVo);
 		if (result) {
 			System.out.println("insert: success");
 		}
-		return "redirect:/board/list";
+		return "redirect:/board/list?page="+page+"&kwd="+kwd;
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -105,7 +118,7 @@ public class BoardController {
 		model.addAttribute("listCount", list.size());
 		model.addAttribute("currentPage", page);
 		model.addAttribute("list", list);
-		return "/board/list";
+		return "redirect:/board/list?page="+page+"&kwd="+kwd;
 	}
 	
 
