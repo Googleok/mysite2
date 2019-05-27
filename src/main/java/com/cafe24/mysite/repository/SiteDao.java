@@ -4,20 +4,20 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafe24.mysite.vo.MainVo;
+import com.cafe24.mysite.vo.SiteVo;
 
 @Repository
-public class MainDao {
+public class SiteDao {
 
 	@Autowired
 	private SqlSession sqlSession;
 
-	public MainVo getInfo() {
-		return sqlSession.selectOne("main.getInfo");
+	public SiteVo getInfo() {
+		return sqlSession.selectOne("site.getInfo");
 	}
 
-	public Boolean updateInfo(MainVo mainVo) {
-		int count = sqlSession.update("main.updateInfo", mainVo);
+	public Boolean updateInfo(SiteVo siteVo) {
+		int count = sqlSession.update("site.updateInfo", siteVo);
 		return count == 1;
 	}
 }

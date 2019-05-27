@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>${info.title}</title>
+<title>${siteVo.title}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
 </head>
@@ -15,10 +15,10 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="${pageContext.request.contextPath }/images/profile/2019421113242314.jpg">
-					<h2>${info.welcomeMessage }</h2>
+					<img id="profile" src="${pageContext.request.contextPath }${siteVo.profile }">
+					<h2>${siteVo.welcomeMessage }</h2>
 					<p>
-						${info.description }
+						${siteVo.description }
 						<a href="${pageContext.servletContext.contextPath }/guestbook">방명록</a>에 글 남기기<br>
 					</p>
 				</div>

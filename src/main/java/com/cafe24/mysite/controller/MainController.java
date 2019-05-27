@@ -6,18 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.mysite.service.MainService;
+import com.cafe24.mysite.service.SiteService;
 import com.cafe24.mysite.vo.UserVo;
 
 @Controller
 public class MainController {
 
 	@Autowired
-	private MainService mainService;
+	private SiteService mainService;
 	
 	@RequestMapping({"/", "/main"})
 	public String main(Model model) {
-		model.addAttribute("info", mainService.getInfo());
+		model.addAttribute("siteVo", mainService.getInfo());
 		return "/main/index";
 	}
 	

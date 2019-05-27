@@ -3,13 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="mainvo" type="com.cafe24.mysite.vo.MainVo"/>
+		<typeAlias alias="sitevo" type="com.cafe24.mysite.vo.SiteVo"/>
 		<typeAlias alias="boardvo" type="com.cafe24.mysite.vo.BoardVo"/>
 		<typeAlias alias="guestbookvo" type="com.cafe24.mysite.vo.GuestbookVo"/>
 		<typeAlias alias="uservo" type="com.cafe24.mysite.vo.UserVo"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mybatis/mappers/main.xml" />
+		<mapper resource="mybatis/mappers/site.xml" />
 		<mapper resource="mybatis/mappers/board.xml" />
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/guestbook.xml" />

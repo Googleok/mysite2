@@ -3,18 +3,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="main">
+<mapper namespace="site">
 
-	<select id="getInfo" resultType="mainvo">
+	<select id="getInfo" resultType="sitevo">
 		<![CDATA[
 			select no, title, welcome_message as welcomeMessage, profile, description
-			from admin_main
+			from site
 		]]>
 	</select>
 	
-	<update id="updateInfo" parameterType="mainvo">
+	<update id="updateInfo" parameterType="sitevo">
 		<![CDATA[
-			update admin_main set
+			update site set
 		]]>
 		<if test="title != null">
 			title = #{title}
@@ -26,7 +26,8 @@
 			, profile = #{profile}
 		</if>
 		<if test="description != null">
-			, description = #{description}
+			, description = #{description},
 		</if>
+		status='true'
 	</update>
 </mapper>

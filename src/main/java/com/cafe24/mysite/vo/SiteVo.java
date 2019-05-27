@@ -1,14 +1,25 @@
 package com.cafe24.mysite.vo;
 
-public class MainVo {
+public class SiteVo {
 
 	private Long no;
 	private String title;
 	private String welcomeMessage;
 	private String profile;
 	private String description;
+	private String status;
 	
-	
+	public SiteVo() {
+		
+	}
+
+	public SiteVo(String title, String welcomeMessage, String profile, String description, String status) {
+		this.title = title;
+		this.welcomeMessage = welcomeMessage;
+		this.profile = profile;
+		this.description = description;
+		this.status = status;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -39,12 +50,16 @@ public class MainVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
-		return "MainVo [no=" + no + ", title=" + title + ", welcomeMessage=" + welcomeMessage + ", profile=" + profile
-				+ ", description=" + description + "]";
+		return "SiteVo [no=" + no + ", title=" + title + ", welcomeMessage=" + welcomeMessage + ", profile=" + profile
+				+ ", description=" + description + ", status=" + status + "]";
 	}
-
-	
 	
 }

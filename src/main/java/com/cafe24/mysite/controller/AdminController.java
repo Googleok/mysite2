@@ -5,9 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.cafe24.mysite.service.MainService;
-import com.cafe24.mysite.vo.MainVo;
+import com.cafe24.fileupload.service.FileuploadService;
+import com.cafe24.mysite.service.SiteService;
+import com.cafe24.mysite.vo.SiteVo;
 
 //@Auth(role=Auth.Role.ADMIN)
 
@@ -16,7 +19,10 @@ import com.cafe24.mysite.vo.MainVo;
 public class AdminController {
 
 	@Autowired	
-	private MainService mainService;
+	private SiteService siteService;
+	
+	@Autowired
+	private FileuploadService fileUploadService;
 	
 	@RequestMapping({"", "/main"})
 	public String main() {
@@ -24,13 +30,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/main/update", method = RequestMethod.POST)
-	public String main_update(@ModelAttribute MainVo mainVo) {
-		System.out.println(mainVo);
-		mainService.updateInfo(mainVo);
+	public String main_update(
+			@RequestParam("title") String title,
+			@RequestParam("welcomeMessage") String welcomeMessage,
+			@RequestParam("profile") MultipartFile multipartFile,
+			@RequestParam("description") String description
+			) {
+		String profile = fileUploadService.restore(multipartFile);
+		SiteVo vo = new SiteVo(title, welcomeMessage, profile, description, "true");
+		siteService.updateInfo(vo);
 		return "redirect:/admin/main";
 	}
-	
-	
 	
 	@RequestMapping("/user")
 	public String user() {
