@@ -31,10 +31,6 @@ public class UserController {
 	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-//			List<ObjectError> list = result.getAllErrors();
-//			for (ObjectError objectError : list) {
-//				System.out.println(objectError);
-//			}
 			model.addAllAttributes(result.getModel());
 			return "/user/join";
 		}
