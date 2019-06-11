@@ -9,11 +9,11 @@
 		<![CDATA[
 			insert 
 				into guestbook
-					values(null, #{name}, #{password}, #{contents}, now())
+					values(nextval('seq_guestbook'), #{name}, #{password}, #{contents}, now())
 		]]>
 		<selectKey keyProperty="no" resultType="Long" order="AFTER">
 			<![CDATA[
-				select last_insert_id()
+				select currval('seq_guestbook')
 			]]>		
 		</selectKey>
 	</insert>
@@ -26,7 +26,7 @@
 
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[
-			select no, name, contents, date_format(reg_date, '%Y-%m-%d %h:%i:%s')
+			select no, name, contents, to_date(cast(reg_date as char), 'YYYY-MM-DD HH24:MI:SS')
 			from guestbook
 			order by reg_date desc
 		]]>
@@ -34,7 +34,7 @@
 
 	<select id="getList2" resultType="guestbookvo" parameterType="Long">
 		<![CDATA[
-			select no, name, contents, date_format(reg_date, '%Y-%m-%d %h:%i:%s')
+			select no, name, contents, to_date(cast(reg_date as char), 'YYYY-MM-DD HH24:MI:SS')
 			from guestbook
 			order by reg_date desc
 		]]>

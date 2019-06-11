@@ -8,12 +8,12 @@
 	<insert id="insert" parameterType="boardvo">
 	<![CDATA[
 	insert into board values
-		 (null,
+		 (nextval('seq_board'),
 		#{title},
         #{contents},
-        0,
-        date_format(now(),'%Y-%m-%d %h:%i:%s'),
-	]]>
+        0, 
+        to_timestamp(to_char(now(), 'YYYY-MM-DD HH24:MI:SS'), 'YYYY-MM-DD HH24:MI:SS'),
+ 	]]>
 	
 		<choose>
 			<when test="groupNo != 0">
@@ -24,7 +24,7 @@
 			</when>
 			<when test="groupNo == 0">
 			<![CDATA[  
-		       (select ifnull(max(b.group_no)+1, 1) from board b),		
+		       (select coalesce(max(b.group_no)+1, 1) from board b),		
 		       	1,	
 			]]>
 			</when>
@@ -50,9 +50,9 @@
 	<select id="getList" resultType="boardvo" parameterType="map">
 	       <![CDATA[
                     SELECT a.name, b.no, b.title, b.contents, b.hit,
-                     b.reg_date as regDate ,b.user_no as userNo,b.group_no as groupNo , b.depth, b.status
-                     FROM user a, board b 
-                     WHERE a.no = b.user_no
+                     b.reg_date as regDate ,b.member_no as userNo,b.group_no as groupNo , b.depth, b.status
+                     FROM member a, board b 
+                     WHERE a.no = b.member_no
            ]]>
            <if test="kwd != null">
            <![CDATA[
@@ -60,14 +60,14 @@
            ]]>
            </if>                    
            <![CDATA[
-                    ORDER BY group_no DESC, order_no ASC LIMIT #{page}, 10;
+                    ORDER BY group_no DESC, order_no ASC LIMIT 10 OFFSET #{page};
            ]]>
 	</select>
 	
 	<select id="getOne" resultType="boardvo">
 		<![CDATA[    
 		select no, title, contents, hit,
-		 reg_date as regDate, group_no as groupNo, order_no as orderNo, depth, user_no as userNo
+		 reg_date as regDate, group_no as groupNo, order_no as orderNo, depth, member_no as userNo
 			 from board
 				where no = #{no};
 	    ]]>	

@@ -1,4 +1,4 @@
-package com.cafe24.fileupload.service;
+package com.cafe24.mysite.service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
